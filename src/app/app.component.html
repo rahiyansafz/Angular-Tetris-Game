@@ -1,0 +1,40 @@
+<div class="wrapper">
+
+  <!-- Main Game Grid -->
+  <div class="grid">
+
+    <div class="upper-bar">
+
+      <!-- Next Piece -->
+      <div class="next-piece">
+        <ng-container *ngFor="let row of gridManagerService.preview$ | async | keyvalue">
+          <div class="row">
+            <ng-container *ngFor="let col of row.value | keyvalue">
+              <div class="cell" [ngStyle]="{ 'background-color': col.value.color }">&nbsp;</div>
+            </ng-container>
+          </div>
+        </ng-container>
+      </div>
+
+      <!-- Score -->
+      <div class="score">{{ gridManagerService.score$ | async }}</div>
+
+    </div>
+
+    <!-- Grid -->
+    <ng-container *ngFor="let row of gridManagerService.grid$ | async | keyvalue">
+      <div class="row">
+        <ng-container *ngFor="let col of row.value | keyvalue">
+          <div class="cell" [ngStyle]="{ 'background-color': col.value.color }">&nbsp;</div>
+        </ng-container>
+      </div>
+    </ng-container>
+
+  </div>
+
+</div>
+
+<!-- Restart Button -->
+<div class="button-wrapper">
+  <button *ngIf="(gridManagerService.gameOver$ | async)" (click)="gridManagerService.resetGame()">GO AGAIN?</button>
+</div>
